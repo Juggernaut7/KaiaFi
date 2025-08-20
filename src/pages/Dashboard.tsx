@@ -31,13 +31,6 @@ const Dashboard: React.FC = () => {
       {/* Hero Section with Logo */}
       <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-8 border border-green-100">
         <div className="flex items-center space-x-4 mb-6">
-          <div className="flex-shrink-0">
-            <img 
-              src="/KF logo.png" 
-              alt="KaiaFi Logo" 
-              className="h-20 w-20 rounded-2xl"
-            />
-          </div>
           <div>
             <h1 className="text-3xl font-bold text-gray-900">
               Welcome to KaiaFi

@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
                 <img 
                   src="/KF logo.png" 
                   alt="KaiaFi Logo" 
-                  className="h-16 w-16 rounded-xl transition-transform duration-200 group-hover:scale-105"
+                  className="h-16 w-20 rounded-xl transition-transform duration-200 group-hover:scale-105"
                 />
               </div>
             </Link>

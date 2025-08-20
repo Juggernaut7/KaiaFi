@@ -126,8 +126,12 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
         {/* Footer */}
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-gray-50">
           <div className="text-center">
-            <div className="mb-2">
-              <h3 className="text-sm font-semibold text-gray-700">KaiaFi</h3>
+            <div className="flex items-center justify-center mb-2">
+              <img 
+                src="/KF logo.png" 
+                alt="KaiaFi Logo" 
+                className="h-12 w-12 rounded-lg"
+              />
             </div>
             <p className="text-xs text-gray-500">
               Korea Stablecoin Hackathon 2025
