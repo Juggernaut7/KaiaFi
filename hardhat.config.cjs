@@ -16,15 +16,15 @@ module.exports = {
   networks: {
     // Kaia Network Testnet
     kaiaTestnet: {
-      url: process.env.KAIA_TESTNET_RPC || "https://testnet-rpc.kaia.network",
-      chainId: 1337,
+      url: process.env.KAIA_TESTNET_RPC || "https://public-en-kairos.node.kaia.io",
+      chainId: 1001,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       gasPrice: "auto",
       gas: "auto",
     },
     // Kaia Network Mainnet (for production)
     kaiaMainnet: {
-      url: process.env.KAIA_MAINNET_RPC || "https://mainnet-rpc.kaia.network",
+      url: process.env.KAIA_MAINNET_RPC || "https://mainnet.kaia.network",
       chainId: 1,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       gasPrice: "auto",
@@ -47,10 +47,10 @@ module.exports = {
     customChains: [
       {
         network: "kaiaTestnet",
-        chainId: 1337,
+        chainId: 1001,
         urls: {
-          apiURL: "https://testnet-explorer.kaia.network/api",
-          browserURL: "https://testnet-explorer.kaia.network",
+          apiURL: "https://baobab.klaytnscope.com/api",
+          browserURL: "https://baobab.klaytnscope.com",
         },
       },
       {

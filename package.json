@@ -9,8 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "compile": "hardhat compile",
-    "deploy:testnet": "hardhat run scripts/deploy.js --network kaiaTestnet",
-    "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
+    "deploy:testnet": "hardhat run scripts/deploy.cjs --network kaiaTestnet",
+    "deploy:local": "hardhat run scripts/deploy.cjs --network hardhat",
     "test": "hardhat test",
     "node": "hardhat node"
   },

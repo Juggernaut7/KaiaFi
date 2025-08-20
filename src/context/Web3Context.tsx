@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { APP_CONFIG } from '../constants';
 
 interface Web3ContextType {
   account: string | null;
@@ -31,32 +32,33 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
   const [provider, setProvider] = useState<any | null>(null);
   const [signer, setSigner] = useState<any | null>(null);
   const [chainId, setChainId] = useState<number | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
-
-  const isConnected = !!account && !!provider;
 
   const connect = async () => {
     if (typeof window.ethereum === 'undefined') {
-      alert('Please install MetaMask or another Web3 wallet');
+      alert('Please install MetaMask to use this app!');
       return;
     }
 
     try {
       setIsConnecting(true);
-      
-      // Request account access
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       const account = accounts[0];
       
       // Mock provider and signer for demo
-      const mockProvider = { getNetwork: () => Promise.resolve({ chainId: 1337 }) };
-      const mockSigner = {};
+      const mockProvider = { 
+        getNetwork: () => Promise.resolve({ chainId: APP_CONFIG.chainId }),
+        getSigner: () => ({ getAddress: () => account })
+      };
+      const mockSigner = { getAddress: () => account };
       
       setAccount(account);
       setProvider(mockProvider);
       setSigner(mockSigner);
-      setChainId(1337); // Kaia Testnet
-      
+      setChainId(APP_CONFIG.chainId);
+      setIsConnected(true);
+
       // Listen for account changes
       window.ethereum.on('accountsChanged', (accounts: string[]) => {
         if (accounts.length === 0) {
@@ -65,14 +67,14 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
           setAccount(accounts[0]);
         }
       });
-      
+
       // Listen for chain changes
       window.ethereum.on('chainChanged', (chainId: string) => {
         setChainId(parseInt(chainId, 16));
       });
-      
+
     } catch (error) {
-      console.error('Failed to connect wallet:', error);
+      console.error('Error connecting to wallet:', error);
       alert('Failed to connect wallet. Please try again.');
     } finally {
       setIsConnecting(false);
@@ -84,47 +86,45 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     setProvider(null);
     setSigner(null);
     setChainId(null);
+    setIsConnected(false);
   };
 
   const switchNetwork = async (targetChainId: number) => {
-    if (!window.ethereum) return;
-    
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: `0x${targetChainId.toString(16)}` }],
       });
-    } catch (error: any) {
-      if (error.code === 4902) {
-        // Chain not added, add it
-        try {
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: `0x${targetChainId.toString(16)}`,
-                chainName: 'Kaia Testnet',
-                nativeCurrency: {
-                  name: 'KAI',
-                  symbol: 'KAI',
-                  decimals: 18,
-                },
-                rpcUrls: ['https://testnet-rpc.kaia.network'],
-                blockExplorerUrls: ['https://testnet-explorer.kaia.network'],
-              },
-            ],
-          });
-        } catch (addError) {
-          console.error('Failed to add network:', addError);
-        }
+    } catch (error) {
+      console.error('Error switching network:', error);
+      // Try to add the network if it doesn't exist
+      try {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [{
+            chainId: `0x${targetChainId.toString(16)}`,
+            chainName: 'Kaia Kairos Testnet',
+            nativeCurrency: {
+              name: 'KAIA',
+              symbol: 'KAIA',
+              decimals: 18
+            },
+            rpcUrls: [APP_CONFIG.rpcUrl],
+            blockExplorerUrls: [APP_CONFIG.explorerUrl]
+          }],
+        });
+      } catch (addError) {
+        console.error('Error adding network:', addError);
+        alert('Failed to add Kaia Kairos Testnet. Please add it manually in MetaMask.');
       }
     }
   };
 
-  // Auto-connect if wallet was previously connected
   useEffect(() => {
-    if (typeof window.ethereum !== 'undefined' && window.ethereum.selectedAddress) {
-      connect();
+    // Check if already connected
+    if (window.ethereum && window.ethereum.selectedAddress) {
+      setAccount(window.ethereum.selectedAddress);
+      setIsConnected(true);
     }
   }, []);
 
@@ -147,7 +147,6 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
   );
 };
 
-// Extend Window interface for ethereum
 declare global {
   interface Window {
     ethereum?: any;

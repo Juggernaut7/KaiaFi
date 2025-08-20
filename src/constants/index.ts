@@ -1,90 +1,95 @@
 import { Asset, LendingPool } from '../types';
 
-// Mock assets for demo purposes
+// Live Contract Addresses from Kaia Kairos Testnet
+export const CONTRACT_ADDRESSES = {
+  // Core Protocol Contracts
+  lendingPool: '0x69BFf0d74bBb734cfac1bE3938488E026F02Bc86',
+  interestRateModel: '0x0BD0DC85E111cA42363D8c67949c2A4ae85b1Bb7',
+  liquidation: '0xc328abADc8e0B205948ECD359F341bd9F3d7ebD2',
+  
+  // Token Contracts
+  mockUSDT: '0x74864Cb942cf73aFABc9633438c1Bb060d7FEa94',
+  mockKAI: '0x77131bAEDd82bED0583E9e17Feb51b788C632893',
+  mockKRW: '0x6c23508A9b310C5f2eb2e2eFeBeB748067478667',
+};
+
 export const MOCK_ASSETS: Asset[] = [
-  {
-    symbol: 'USDT',
-    name: 'Tether USD',
-    decimals: 6,
-    address: '0x1234567890123456789012345678901234567890',
-    icon: '💵',
-    price: 1.00,
-    apy: 3.25
+  { 
+    symbol: 'USDT', 
+    name: 'Tether USD', 
+    decimals: 6, 
+    address: CONTRACT_ADDRESSES.mockUSDT, 
+    icon: '💵', 
+    price: 1.00, 
+    apy: 3.25 
   },
-  {
-    symbol: 'KAI',
-    name: 'Kaia Token',
-    decimals: 18,
-    address: '0x2345678901234567890123456789012345678901',
-    icon: '🚀',
-    price: 0.85,
-    apy: 8.50
+  { 
+    symbol: 'KAI', 
+    name: 'Kaia Token', 
+    decimals: 18, 
+    address: CONTRACT_ADDRESSES.mockKAI, 
+    icon: '🚀', 
+    price: 0.85, 
+    apy: 8.50 
   },
-  {
-    symbol: 'KRW',
-    name: 'Korean Won Stablecoin',
-    decimals: 6,
-    address: '0x3456789012345678901234567890123456789012',
-    icon: '🇰🇷',
-    price: 0.00075,
-    apy: 4.20
+  { 
+    symbol: 'KRW', 
+    name: 'Korean Won Stablecoin', 
+    decimals: 6, 
+    address: CONTRACT_ADDRESSES.mockKRW, 
+    icon: '🇰🇷', 
+    price: 0.00075, 
+    apy: 4.20 
   }
 ];
 
-// Mock lending pools
 export const MOCK_LENDING_POOLS: LendingPool[] = [
   {
     asset: MOCK_ASSETS[0], // USDT
-    totalSupply: '1250000',
-    totalBorrow: '450000',
+    totalSupply: '1000000.00',
+    totalBorrow: '250000.00',
     supplyAPY: 3.25,
-    borrowAPY: 5.75,
-    utilizationRate: 36.0,
-    maxLTV: 85,
-    liquidationThreshold: 90,
-    liquidationPenalty: 5
+    borrowAPY: 5.50,
+    utilizationRate: 25.0,
+    maxLTV: 0.75,
+    liquidationThreshold: 0.80,
+    liquidationPenalty: 0.05
   },
   {
     asset: MOCK_ASSETS[1], // KAI
-    totalSupply: '850000',
-    totalBorrow: '320000',
+    totalSupply: '50000.00',
+    totalBorrow: '15000.00',
     supplyAPY: 8.50,
-    borrowAPY: 12.25,
-    utilizationRate: 37.6,
-    maxLTV: 70,
-    liquidationThreshold: 80,
-    liquidationPenalty: 8
+    borrowAPY: 12.75,
+    utilizationRate: 30.0,
+    maxLTV: 0.60,
+    liquidationThreshold: 0.65,
+    liquidationPenalty: 0.05
   },
   {
     asset: MOCK_ASSETS[2], // KRW
-    totalSupply: '2100000',
-    totalBorrow: '680000',
+    totalSupply: '1000000.00',
+    totalBorrow: '300000.00',
     supplyAPY: 4.20,
     borrowAPY: 6.80,
-    utilizationRate: 32.4,
-    maxLTV: 90,
-    liquidationThreshold: 95,
-    liquidationPenalty: 3
+    utilizationRate: 30.0,
+    maxLTV: 0.85,
+    liquidationThreshold: 0.90,
+    liquidationPenalty: 0.05
   }
 ];
 
-// App configuration
 export const APP_CONFIG = {
   name: 'KaiaFi Lending',
   description: 'Decentralized Lending & Borrowing on Kaia Network',
   version: '1.0.0',
-  network: 'Kaia Testnet',
-  rpcUrl: 'https://testnet-rpc.kaia.network',
-  chainId: 1337, // Mock chain ID for demo
-  explorerUrl: 'https://testnet-explorer.kaia.network',
-  contractAddresses: {
-    lendingPool: '0x5678901234567890123456789012345678901234',
-    priceOracle: '0x6789012345678901234567890123456789012345',
-    interestRateModel: '0x7890123456789012345678901234567890123456'
-  }
+  network: 'Kaia Kairos Testnet',
+  rpcUrl: 'https://public-en-kairos.node.kaia.io',
+  chainId: 1001,
+  explorerUrl: 'https://baobab.klaytnscope.com',
+  contractAddresses: CONTRACT_ADDRESSES
 };
 
-// UI Constants
 export const UI_CONFIG = {
   colors: {
     primary: '#10B981', // Green
@@ -106,17 +111,20 @@ export const UI_CONFIG = {
     md: '1rem',
     lg: '1.5rem',
     xl: '2rem',
-    '2xl': '3rem'
+    '2xl': '3rem',
+    '3xl': '4rem'
   },
   borderRadius: {
-    sm: '0.375rem',
+    sm: '0.25rem',
     md: '0.5rem',
     lg: '0.75rem',
-    xl: '1rem'
+    xl: '1rem',
+    '2xl': '1.5rem'
   },
   shadows: {
     sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
     md: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-    lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
+    lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+    xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
   }
 }; 

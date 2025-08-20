@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useWeb3 } from '../context/Web3Context';
+import { APP_CONFIG } from '../constants';
 import { 
   Menu, 
   Wallet, 
@@ -15,39 +16,35 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
-  const { 
-    account, 
-    isConnected, 
-    connect, 
-    disconnect, 
-    chainId, 
-    switchNetwork,
-    isConnecting 
-  } = useWeb3();
+  const { account, isConnected, connect, disconnect, chainId, switchNetwork, isConnecting } = useWeb3();
 
   const formatAddress = (address: string) => {
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
   };
 
-  const getNetworkName = (chainId: number | null) => {
-    if (chainId === 1337) return 'Kaia Testnet';
-    if (chainId === 1) return 'Ethereum';
-    if (chainId === 137) return 'Polygon';
-    return `Chain ${chainId}`;
+  const getNetworkName = () => {
+    if (chainId === APP_CONFIG.chainId) {
+      return 'Kaia Kairos Testnet';
+    }
+    return 'Unknown Network';
   };
 
-  const getNetworkColor = (chainId: number | null) => {
-    if (chainId === 1337) return 'bg-green-500';
-    if (chainId === 1) return 'bg-blue-500';
-    if (chainId === 137) return 'bg-purple-500';
-    return 'bg-gray-500';
+  const getNetworkColor = () => {
+    if (chainId === APP_CONFIG.chainId) {
+      return 'bg-green-100 text-green-800';
+    }
+    return 'bg-red-100 text-red-800';
+  };
+
+  const handleNetworkSwitch = () => {
+    switchNetwork(APP_CONFIG.chainId);
   };
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 h-16 flex-shrink-0">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Left side */}
+          {/* Left side - Logo and Menu */}
           <div className="flex items-center">
             <button
               onClick={onMenuClick}
@@ -56,75 +53,51 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
               <Menu className="h-6 w-6" />
             </button>
             
-            <Link to="/" className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">K</span>
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="text-xl font-bold text-gray-900">KaiaFi</h1>
-                <p className="text-xs text-gray-500">DeFi on Kaia Network</p>
+            <Link to="/" className="flex items-center">
+              <div className="flex-shrink-0">
+                <h1 className="text-xl font-bold text-green-600">KaiaFi</h1>
               </div>
             </Link>
           </div>
 
-          {/* Center - Network Status */}
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center space-x-2 px-3 py-2 bg-gray-100 rounded-lg">
-              <div className={`w-2 h-2 rounded-full ${getNetworkColor(chainId)}`} />
-              <span className="text-sm font-medium text-gray-700">
-                {getNetworkName(chainId)}
-              </span>
-              {chainId !== 1337 && (
-                <button
-                  onClick={() => switchNetwork(1337)}
-                  className="ml-2 text-xs text-green-600 hover:text-green-700 font-medium"
-                >
-                  Switch to Kaia
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Right side */}
+          {/* Right side - Network and Wallet */}
           <div className="flex items-center space-x-4">
+            {/* Network Status */}
+            <div className="hidden sm:flex items-center space-x-2">
+              <Network className="h-4 w-4 text-gray-400" />
+              <button
+                onClick={handleNetworkSwitch}
+                className={`px-3 py-1 rounded-full text-xs font-medium ${getNetworkColor()} hover:opacity-80 transition-opacity`}
+              >
+                {getNetworkName()}
+                <ChevronDown className="inline ml-1 h-3 w-3" />
+              </button>
+            </div>
+
             {/* Notifications */}
-            <button className="p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-lg">
+            <button className="p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-md">
               <Bell className="h-5 w-5" />
             </button>
 
             {/* Settings */}
-            <button className="p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-lg">
+            <button className="p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-md">
               <Settings className="h-5 w-5" />
             </button>
 
             {/* Wallet Connection */}
             {isConnected ? (
               <div className="flex items-center space-x-3">
-                {/* Network Switch */}
-                <button
-                  onClick={() => switchNetwork(1337)}
-                  className="flex items-center space-x-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
-                >
-                  <Network className="h-4 w-4 text-gray-600" />
-                  <span className="text-sm font-medium text-gray-700">
-                    {getNetworkName(chainId)}
-                  </span>
-                  <ChevronDown className="h-4 w-4 text-gray-600" />
-                </button>
-
-                {/* Wallet Info */}
-                <div className="flex items-center space-x-2 px-3 py-2 bg-green-50 border border-green-200 rounded-lg">
-                  <Wallet className="h-4 w-4 text-green-600" />
-                  <span className="text-sm font-medium text-green-700">
+                <div className="hidden sm:block">
+                  <div className="text-sm text-gray-500">Connected</div>
+                  <div className="text-sm font-medium text-gray-900">
                     {formatAddress(account!)}
-                  </span>
+                  </div>
                 </div>
-
-                {/* Disconnect */}
                 <button
                   onClick={disconnect}
-                  className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
+                  <Wallet className="h-4 w-4 mr-2" />
                   Disconnect
                 </button>
               </div>
@@ -132,10 +105,10 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
               <button
                 onClick={connect}
                 disabled={isConnecting}
-                className="flex items-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-medium rounded-lg transition-colors"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Wallet className="h-4 w-4" />
-                <span>{isConnecting ? 'Connecting...' : 'Connect Wallet'}</span>
+                <Wallet className="h-4 w-4 mr-2" />
+                {isConnecting ? 'Connecting...' : 'Connect Wallet'}
               </button>
             )}
           </div>
