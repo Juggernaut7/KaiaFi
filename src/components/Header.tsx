@@ -53,21 +53,13 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
               <Menu className="h-6 w-6" />
             </button>
             
-            <Link to="/" className="flex items-center space-x-3 group">
+            <Link to="/" className="flex items-center group">
               <div className="flex-shrink-0">
                 <img 
                   src="/KF logo.png" 
                   alt="KaiaFi Logo" 
-                  className="h-10 w-10 transition-transform duration-200 group-hover:scale-105"
+                  className="h-12 w-12 transition-transform duration-200 group-hover:scale-105"
                 />
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="text-xl font-bold text-gray-900 group-hover:text-green-600 transition-colors duration-200">
-                  KaiaFi
-                </h1>
-                <p className="text-xs text-gray-500 group-hover:text-green-500 transition-colors duration-200">
-                  DeFi on Kaia Network
-                </p>
               </div>
             </Link>
           </div>

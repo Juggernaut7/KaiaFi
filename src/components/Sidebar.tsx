@@ -48,21 +48,13 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
       `}>
         {/* Sidebar Header */}
         <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
-          <Link to="/" className="flex items-center space-x-3 group">
+          <Link to="/" className="flex items-center group">
             <div className="flex-shrink-0">
               <img 
                 src="/KF logo.png" 
                 alt="KaiaFi Logo" 
-                className="h-8 w-8 transition-transform duration-200 group-hover:scale-105"
+                className="h-10 w-10 transition-transform duration-200 group-hover:scale-105"
               />
-            </div>
-            <div>
-              <h1 className="text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors duration-200">
-                KaiaFi
-              </h1>
-              <p className="text-xs text-gray-500 group-hover:text-green-500 transition-colors duration-200">
-                DeFi Protocol
-              </p>
             </div>
           </Link>
           
@@ -140,13 +132,12 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
         {/* Footer */}
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-gray-50">
           <div className="text-center">
-            <div className="flex items-center justify-center space-x-2 mb-2">
+            <div className="flex items-center justify-center mb-2">
               <img 
                 src="/KF logo.png" 
                 alt="KaiaFi Logo" 
-                className="h-6 w-6"
+                className="h-8 w-8"
               />
-              <span className="text-sm font-medium text-gray-700">KaiaFi</span>
             </div>
             <p className="text-xs text-gray-500">
               Korea Stablecoin Hackathon 2025
