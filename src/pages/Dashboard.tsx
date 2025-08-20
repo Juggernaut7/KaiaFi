@@ -35,7 +35,7 @@ const Dashboard: React.FC = () => {
             <img 
               src="/KF logo.png" 
               alt="KaiaFi Logo" 
-              className="h-16 w-16"
+              className="h-20 w-20 rounded-2xl"
             />
           </div>
           <div>
@@ -78,7 +78,7 @@ const Dashboard: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-white rounded-lg p-4 border border-green-200">
+            <div className="bg-white rounded-xl p-4 border border-green-200 shadow-sm">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-500">Total Supplied</p>
@@ -87,7 +87,7 @@ const Dashboard: React.FC = () => {
                 <TrendingUp className="h-8 w-8 text-green-500" />
               </div>
             </div>
-            <div className="bg-white rounded-lg p-4 border border-green-200">
+            <div className="bg-white rounded-xl p-4 border border-green-200 shadow-sm">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-500">Total Borrowed</p>
@@ -96,7 +96,7 @@ const Dashboard: React.FC = () => {
                 <TrendingDown className="h-8 w-8 text-red-500" />
               </div>
             </div>
-            <div className="bg-white rounded-lg p-4 border border-green-200">
+            <div className="bg-white rounded-xl p-4 border border-green-200 shadow-sm">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-500">Health Factor</p>
@@ -116,9 +116,9 @@ const Dashboard: React.FC = () => {
       <div>
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Market Overview</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
+          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
             <div className="flex items-start">
-              <div className="p-2 bg-green-100 rounded-lg flex-shrink-0">
+              <div className="p-2 bg-green-100 rounded-xl flex-shrink-0">
                 <DollarSign className="h-6 w-6 text-green-600" />
               </div>
               <div className="ml-4 min-w-0 flex-1">
@@ -128,9 +128,9 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
           
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
+          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
             <div className="flex items-start">
-              <div className="p-2 bg-blue-100 rounded-lg flex-shrink-0">
+              <div className="p-2 bg-blue-100 rounded-xl flex-shrink-0">
                 <TrendingUp className="h-6 w-6 text-blue-600" />
               </div>
               <div className="ml-4 min-w-0 flex-1">
@@ -140,9 +140,9 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
           
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
+          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
             <div className="flex items-start">
-              <div className="p-2 bg-purple-100 rounded-lg flex-shrink-0">
+              <div className="p-2 bg-purple-100 rounded-xl flex-shrink-0">
                 <TrendingDown className="h-6 w-6 text-purple-600" />
               </div>
               <div className="ml-4 min-w-0 flex-1">
@@ -152,9 +152,9 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
           
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
+          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
             <div className="flex items-start">
-              <div className="p-2 bg-yellow-100 rounded-lg flex-shrink-0">
+              <div className="p-2 bg-yellow-100 rounded-xl flex-shrink-0">
                 <Wallet className="h-6 w-6 text-yellow-600" />
               </div>
               <div className="ml-4 min-w-0 flex-1">
@@ -179,7 +179,7 @@ const Dashboard: React.FC = () => {
           </Link>
         </div>
         
-        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
@@ -244,7 +244,7 @@ const Dashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Link
             to="/lending"
-            className="group bg-white rounded-lg p-6 border border-gray-200 hover:border-green-300 hover:shadow-md transition-all duration-200"
+            className="group bg-white rounded-xl p-6 border border-gray-200 hover:border-green-300 hover:shadow-md transition-all duration-200 shadow-sm"
           >
             <div className="flex items-center justify-between">
               <div>
@@ -255,7 +255,7 @@ const Dashboard: React.FC = () => {
                   Supply assets and earn interest on your deposits
                 </p>
               </div>
-              <div className="p-3 bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors duration-200">
+              <div className="p-3 bg-green-100 rounded-xl group-hover:bg-green-200 transition-colors duration-200">
                 <Plus className="h-6 w-6 text-green-600" />
               </div>
             </div>
@@ -263,7 +263,7 @@ const Dashboard: React.FC = () => {
           
           <Link
             to="/borrowing"
-            className="group bg-white rounded-lg p-6 border border-gray-200 hover:border-green-300 hover:shadow-md transition-all duration-200"
+            className="group bg-white rounded-xl p-6 border border-gray-200 hover:border-green-300 hover:shadow-md transition-all duration-200 shadow-sm"
           >
             <div className="flex items-center justify-between">
               <div>
@@ -274,7 +274,7 @@ const Dashboard: React.FC = () => {
                   Borrow against your collateral with competitive rates
                 </p>
               </div>
-              <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors duration-200">
+              <div className="p-3 bg-blue-100 rounded-xl group-hover:bg-blue-200 transition-colors duration-200">
                 <Minus className="h-6 w-6 text-blue-600" />
               </div>
             </div>

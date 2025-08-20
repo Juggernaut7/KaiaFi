@@ -53,7 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
               <img 
                 src="/KF logo.png" 
                 alt="KaiaFi Logo" 
-                className="h-10 w-10 transition-transform duration-200 group-hover:scale-105"
+                className="h-14 w-14 rounded-lg transition-transform duration-200 group-hover:scale-105"
               />
             </div>
           </Link>
@@ -136,7 +136,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
               <img 
                 src="/KF logo.png" 
                 alt="KaiaFi Logo" 
-                className="h-8 w-8"
+                className="h-10 w-10 rounded-lg"
               />
             </div>
             <p className="text-xs text-gray-500">
