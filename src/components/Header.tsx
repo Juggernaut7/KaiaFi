@@ -48,14 +48,26 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
           <div className="flex items-center">
             <button
               onClick={onMenuClick}
-              className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
+              className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 mr-3"
             >
               <Menu className="h-6 w-6" />
             </button>
             
-            <Link to="/" className="flex items-center">
+            <Link to="/" className="flex items-center space-x-3 group">
               <div className="flex-shrink-0">
-                <h1 className="text-xl font-bold text-green-600">KaiaFi</h1>
+                <img 
+                  src="/KF logo.png" 
+                  alt="KaiaFi Logo" 
+                  className="h-10 w-10 transition-transform duration-200 group-hover:scale-105"
+                />
+              </div>
+              <div className="hidden sm:block">
+                <h1 className="text-xl font-bold text-gray-900 group-hover:text-green-600 transition-colors duration-200">
+                  KaiaFi
+                </h1>
+                <p className="text-xs text-gray-500 group-hover:text-green-500 transition-colors duration-200">
+                  DeFi on Kaia Network
+                </p>
               </div>
             </Link>
           </div>
@@ -75,12 +87,12 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
             </div>
 
             {/* Notifications */}
-            <button className="p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-md">
+            <button className="p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-md transition-colors duration-200">
               <Bell className="h-5 w-5" />
             </button>
 
             {/* Settings */}
-            <button className="p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-md">
+            <button className="p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-md transition-colors duration-200">
               <Settings className="h-5 w-5" />
             </button>
 
@@ -95,7 +107,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
                 </div>
                 <button
                   onClick={disconnect}
-                  className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200"
                 >
                   <Wallet className="h-4 w-4 mr-2" />
                   Disconnect
@@ -105,7 +117,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
               <button
                 onClick={connect}
                 disabled={isConnecting}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-sm hover:shadow-md"
               >
                 <Wallet className="h-4 w-4 mr-2" />
                 {isConnecting ? 'Connecting...' : 'Connect Wallet'}
