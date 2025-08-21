@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useWeb3 } from '../context/Web3Context';
 import { useLending } from '../context/LendingContext';
-import { TrendingUp, TrendingDown, DollarSign, Wallet, ArrowUpRight, ArrowDownRight, Plus, Minus } from 'lucide-react';
+import { TrendingUp, TrendingDown, DollarSign, Wallet, ArrowUpRight, ArrowDownRight, Plus, Minus, Activity, Target, Zap, Shield } from 'lucide-react';
+import RealTimeAnalytics from '../components/RealTimeAnalytics';
 
 const Dashboard: React.FC = () => {
   const { isConnected } = useWeb3();
   const { marketData, userPositions, lendingPools } = useLending();
+  const [selectedTimeframe, setSelectedTimeframe] = useState('7d');
 
   // Calculate user portfolio data
   const totalUserValue = userPositions.reduce((total, position) => total + parseFloat(position.supplied || '0'), 0);
@@ -104,6 +106,123 @@ const Dashboard: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Performance Analytics */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Performance Overview */}
+        <div className="lg:col-span-2 bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-semibold text-gray-900">Performance Analytics</h2>
+            <div className="flex space-x-2">
+              {['7d', '30d', '90d'].map((timeframe) => (
+                <button
+                  key={timeframe}
+                  onClick={() => setSelectedTimeframe(timeframe)}
+                  className={`px-3 py-1 text-sm font-medium rounded-lg transition-colors ${
+                    selectedTimeframe === timeframe
+                      ? 'bg-green-100 text-green-700'
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  {timeframe}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Average APY</p>
+                  <p className="text-2xl font-bold text-gray-900">5.2%</p>
+                </div>
+                <Activity className="h-8 w-8 text-green-500" />
+              </div>
+              <div className="flex items-center mt-2">
+                <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
+                <span className="text-sm text-green-600">+0.3%</span>
+              </div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Total Volume</p>
+                  <p className="text-2xl font-bold text-gray-900">$2.4M</p>
+                </div>
+                <Target className="h-8 w-8 text-blue-500" />
+              </div>
+              <div className="flex items-center mt-2">
+                <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
+                <span className="text-sm text-green-600">+12.5%</span>
+              </div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Active Users</p>
+                  <p className="text-2xl font-bold text-gray-900">1,247</p>
+                </div>
+                <Zap className="h-8 w-8 text-purple-500" />
+              </div>
+              <div className="flex items-center mt-2">
+                <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
+                <span className="text-sm text-green-600">+8.3%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Risk Metrics */}
+        <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+          <h2 className="text-xl font-semibold text-gray-900 mb-6">Risk Metrics</h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+              <div className="flex items-center">
+                <Shield className="h-5 w-5 text-green-600 mr-3" />
+                <div>
+                  <p className="text-sm font-medium text-gray-900">Protocol Safety</p>
+                  <p className="text-xs text-gray-500">Audited & Secure</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-bold text-green-600">A+</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+              <div className="flex items-center">
+                <Target className="h-5 w-5 text-blue-600 mr-3" />
+                <div>
+                  <p className="text-sm font-medium text-gray-900">Liquidation Risk</p>
+                  <p className="text-xs text-gray-500">Very Low</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-bold text-blue-600">2.5%</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+              <div className="flex items-center">
+                <Activity className="h-5 w-5 text-yellow-600 mr-3" />
+                <div>
+                  <p className="text-sm font-medium text-gray-900">Market Volatility</p>
+                  <p className="text-xs text-gray-500">Stable</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-bold text-yellow-600">Low</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Real-Time Analytics */}
+      <RealTimeAnalytics />
 
       {/* Market Overview */}
       <div>
