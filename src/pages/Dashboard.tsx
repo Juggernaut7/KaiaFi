@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useWeb3 } from '../context/Web3Context';
 import { useLending } from '../context/LendingContext';
-import { TrendingUp, TrendingDown, DollarSign, Wallet, ArrowUpRight, ArrowDownRight, Plus, Minus, Activity, Target, Zap, Shield } from 'lucide-react';
+import { TrendingUp, TrendingDown, DollarSign, Wallet, ArrowUpRight, ArrowDownRight, Plus, Minus, Activity, Target, Zap, Shield, Brain, Sparkles, BarChart3 } from 'lucide-react';
 import RealTimeAnalytics from '../components/RealTimeAnalytics';
+import AIRiskAssessment from '../components/AIRiskAssessment';
+import AIPortfolioOptimizer from '../components/AIPortfolioOptimizer';
+import AIMarketIntelligence from '../components/AIMarketIntelligence';
 
 const Dashboard: React.FC = () => {
   const { isConnected } = useWeb3();
   const { marketData, userPositions, lendingPools } = useLending();
   const [selectedTimeframe, setSelectedTimeframe] = useState('7d');
+  const [activeAITab, setActiveAITab] = useState('risk');
 
   // Calculate user portfolio data
   const totalUserValue = userPositions.reduce((total, position) => total + parseFloat(position.supplied || '0'), 0);
@@ -38,21 +42,25 @@ const Dashboard: React.FC = () => {
               Welcome to KaiaFi
             </h1>
             <p className="text-lg text-gray-600 mt-2">
-              Decentralized Lending & Borrowing on Kaia Network
+              AI-Powered DeFi Lending & Borrowing on Kaia Network
             </p>
             <p className="text-sm text-gray-500 mt-1">
               Korea Stablecoin Hackathon 2025 • Live on Kaia Kairos Testnet
             </p>
+            <div className="flex items-center mt-2">
+              <Brain className="h-4 w-4 text-purple-600 mr-2" />
+              <span className="text-sm text-purple-600 font-medium">AI-Enhanced DeFi Platform</span>
+            </div>
           </div>
         </div>
         
         {!isConnected ? (
           <div className="bg-white rounded-lg p-6 border border-green-200">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              🚀 Get Started with DeFi
+              🚀 Get Started with AI-Powered DeFi
             </h3>
             <p className="text-gray-600 mb-4">
-              Connect your wallet to start lending, borrowing, and earning on Kaia Network
+              Connect your wallet to access intelligent lending, borrowing, and portfolio optimization powered by machine learning
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
@@ -105,6 +113,57 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* AI-Powered Features Section */}
+      <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-6 border border-purple-200">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-purple-100 rounded-lg">
+              <Brain className="h-6 w-6 text-purple-600" />
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900">AI-Powered Intelligence</h2>
+              <p className="text-sm text-gray-600">Machine learning insights for smarter DeFi decisions</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Sparkles className="h-5 w-5 text-purple-600" />
+            <span className="text-sm text-purple-600 font-medium">Powered by TensorFlow.js</span>
+          </div>
+        </div>
+
+        {/* AI Tabs */}
+        <div className="flex space-x-2 mb-6">
+          {[
+            { id: 'risk', label: 'Risk Assessment', icon: Shield },
+            { id: 'portfolio', label: 'Portfolio Optimizer', icon: Target },
+            { id: 'market', label: 'Market Intelligence', icon: BarChart3 }
+          ].map((tab) => {
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveAITab(tab.id)}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  activeAITab === tab.id
+                    ? 'bg-purple-600 text-white shadow-lg'
+                    : 'text-purple-600 bg-white hover:bg-purple-50'
+                }`}
+              >
+                <Icon className="h-4 w-4" />
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* AI Component Display */}
+        <div className="min-h-[400px]">
+          {activeAITab === 'risk' && <AIRiskAssessment />}
+          {activeAITab === 'portfolio' && <AIPortfolioOptimizer />}
+          {activeAITab === 'market' && <AIMarketIntelligence />}
+        </div>
       </div>
 
       {/* Performance Analytics */}
